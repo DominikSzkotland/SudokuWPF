@@ -1,0 +1,7 @@
+C:\Users\PC\Documents\Kodework\Sudoku\Sudoku.pdb
+C:\Users\PC\Documents\Kodework\Sudoku\D3DCompiler_47_cor3.dll
+C:\Users\PC\Documents\Kodework\Sudoku\PenImc_cor3.dll
+C:\Users\PC\Documents\Kodework\Sudoku\PresentationNative_cor3.dll
+C:\Users\PC\Documents\Kodework\Sudoku\vcruntime140_cor3.dll
+C:\Users\PC\Documents\Kodework\Sudoku\wpfgfx_cor3.dll
+C:\Users\PC\Documents\Kodework\Sudoku\Sudoku.exe
