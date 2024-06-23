@@ -65,7 +65,7 @@ namespace Sudoku
         }
         private void SetDifficultySliderMaximum()
         {
-            difficultySlider.Maximum = boardSize * boardSize * boardSize * boardSize - 1;
+            difficultySlider.Maximum = boardSize * boardSize * boardSize * boardSize;
         }
         private void SetDifficultyLevel(int value)
         {

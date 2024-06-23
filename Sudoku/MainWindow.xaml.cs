@@ -32,6 +32,11 @@ namespace Sudoku
             if (readedFileContent != string.Empty)
             {
                 RunGameFromFile();
+                for (int i = 0; i < allBoxes.Count; i++)
+                {
+                    allBoxes[i].TextChanged += CheckIfYouWon;
+                }
+                CheckIfYouWon();
             }
             else if (CheckNumberOfBoxesInOneRowValidation(numberOfBoxesInOneRow))
             {
@@ -43,6 +48,7 @@ namespace Sudoku
                 {
                     allBoxes[i].TextChanged += CheckIfYouWon;
                 }
+                CheckIfYouWon();
             }
             else
             {
@@ -58,8 +64,11 @@ namespace Sudoku
                 {
                     e.Cancel = true;
                 }
-                MainMenu mainMenu = new MainMenu();
-                mainMenu.Show();
+                else
+                {
+                    MainMenu mainMenu = new MainMenu();
+                    mainMenu.Show();
+                }
             }
             if (result == MessageBoxResult.No)
             {
@@ -97,6 +106,7 @@ namespace Sudoku
                 {
                     if (allData[i].StartsWith("R"))
                     {
+                        numberOfPreBuildedBoxes++;
                         allBoxes[i - 1].Text = allData[i].Remove(0, 1);
                         allBoxes[i - 1].IsReadOnly = true;
                         allBoxes[i - 1].IsEnabled = false;
@@ -400,7 +410,6 @@ namespace Sudoku
         void ApplyDifficultyLevel()
         {
             int numberOfSolvedBoxes = allBoxes.Count - numberOfPreBuildedBoxes;
-            Trace.WriteLine("Solved: " + numberOfSolvedBoxes + " All: " + allBoxes.Count + " Pre: " + numberOfPreBuildedBoxes);
             Random random = new Random();
             List<int> erasedIndexes = new List<int>();
             List<int> availableIndexes = new List<int>();
@@ -468,6 +477,26 @@ namespace Sudoku
                 }
             }
         }
+        private void CheckIfYouWon()
+        {
+            if (IsBoardOK() && !CheckIfBoardContainsEmptyBoxes())
+            {
+
+                if (numberOfPreBuildedBoxes > 1)
+                {
+                    MessageBox.Show("You Won!\n" + numberOfBoxesInOneRow + "x" + numberOfBoxesInOneRow + " board.\nStarted with " + numberOfPreBuildedBoxes + "/" + allBoxes.Count + " solved boxes");
+                }
+                else if (numberOfPreBuildedBoxes == 1)
+                {
+                    MessageBox.Show("You Won!\n" + numberOfBoxesInOneRow + "x" + numberOfBoxesInOneRow + " board.\nStarted with " + numberOfPreBuildedBoxes + "/" + allBoxes.Count + " solved box");
+                }
+                else
+                {
+                    MessageBox.Show("You Won!\n" + numberOfBoxesInOneRow + "x" + numberOfBoxesInOneRow + " board.\nStarted without solved boxes");
+                }
+            }
+        }
+
         private bool IsBoardOK()
         {
             if (IsColumnsOk() && IsRowsOk() && IsAreasOk())
